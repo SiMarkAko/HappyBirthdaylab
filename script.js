@@ -193,11 +193,23 @@ function showScreen(screen) {
    MUSIC
 ========================================================= */
 
+let musicMuted =
+    false;
+
+
 function startMusic() {
 
     if (!music) {
         return;
     }
+
+
+    musicMuted =
+        false;
+
+
+    music.muted =
+        false;
 
 
     music.volume =
@@ -220,9 +232,30 @@ function startMusic() {
 
     if (musicToggle) {
 
+        musicToggle.classList.remove(
+            "muted"
+        );
+
         musicToggle.classList.add(
             "visible"
         );
+
+        musicToggle.setAttribute(
+            "aria-pressed",
+            "true"
+        );
+
+        musicToggle.setAttribute(
+            "aria-label",
+            "Pause music"
+        );
+
+        if (musicIcon) {
+
+            musicIcon.textContent =
+                "🔊";
+
+        }
 
     }
 
@@ -244,47 +277,61 @@ if (musicToggle) {
             }
 
 
-            if (music.paused) {
+            musicMuted =
+                !musicMuted;
 
-                music.play().catch(
-                    () => {}
-                );
 
-                musicToggle.classList.remove(
-                    "muted"
-                );
+            music.muted =
+                musicMuted;
 
-                musicToggle.setAttribute(
-                    "aria-pressed",
-                    "true"
-                );
 
-                if (musicIcon) {
-
-                    musicIcon.textContent =
-                        "🔊";
-
-                }
-
-            } else {
+            if (musicMuted) {
 
                 music.pause();
 
-                musicToggle.classList.add(
-                    "muted"
-                );
+                music.volume =
+                    0;
 
-                musicToggle.setAttribute(
-                    "aria-pressed",
-                    "false"
-                );
+            } else {
 
-                if (musicIcon) {
+                music.volume =
+                    0.45;
 
-                    musicIcon.textContent =
-                        "🔇";
+                music
+                    .play()
+                    .catch(
+                        () => {}
+                    );
 
-                }
+            }
+
+
+            musicToggle.classList.toggle(
+                "muted",
+                musicMuted
+            );
+
+
+            musicToggle.setAttribute(
+                "aria-pressed",
+                String(!musicMuted)
+            );
+
+
+            musicToggle.setAttribute(
+                "aria-label",
+                musicMuted
+                    ? "Unmute music"
+                    : "Pause music"
+            );
+
+
+            if (musicIcon) {
+
+                musicIcon.textContent =
+                    musicMuted
+                        ? "🔇"
+                        : "🔊";
 
             }
 
