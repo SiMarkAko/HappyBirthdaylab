@@ -2139,6 +2139,16 @@ function resetPull() {
 }
 
 
+function isMousePointer(event) {
+
+    return (
+        event.pointerType ===
+        "mouse"
+    );
+
+}
+
+
 let wheelArmed =
     true;
 
@@ -2186,6 +2196,17 @@ if (finalScreen) {
         event => {
 
             if (
+                !isMousePointer(
+                    event
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            if (
                 event.target.closest(
                     ".pull-up-hint"
                 )
@@ -2210,6 +2231,17 @@ if (finalScreen) {
         "pointermove",
         event => {
 
+            if (
+                !isMousePointer(
+                    event
+                )
+            ) {
+
+                return;
+
+            }
+
+
             handlePullMove(
                 event.clientY
             );
@@ -2220,13 +2252,43 @@ if (finalScreen) {
 
     finalScreen.addEventListener(
         "pointerup",
-        resetPull
+        event => {
+
+            if (
+                !isMousePointer(
+                    event
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            resetPull();
+
+        }
     );
 
 
     finalScreen.addEventListener(
         "pointercancel",
-        resetPull
+        event => {
+
+            if (
+                !isMousePointer(
+                    event
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            resetPull();
+
+        }
     );
 
 
@@ -2321,6 +2383,17 @@ if (moreScreen) {
         event => {
 
             if (
+                !isMousePointer(
+                    event
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            if (
                 event.target.closest(
                     ".outline-button"
                 )
@@ -2345,6 +2418,17 @@ if (moreScreen) {
         "pointermove",
         event => {
 
+            if (
+                !isMousePointer(
+                    event
+                )
+            ) {
+
+                return;
+
+            }
+
+
             handlePullMove(
                 event.clientY
             );
@@ -2355,13 +2439,43 @@ if (moreScreen) {
 
     moreScreen.addEventListener(
         "pointerup",
-        resetPull
+        event => {
+
+            if (
+                !isMousePointer(
+                    event
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            resetPull();
+
+        }
     );
 
 
     moreScreen.addEventListener(
         "pointercancel",
-        resetPull
+        event => {
+
+            if (
+                !isMousePointer(
+                    event
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            resetPull();
+
+        }
     );
 
 
